@@ -28,7 +28,7 @@ $(_fmac_ko): $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/$(BOARD_KERNEL_IMAGE_NAME) $
 		$(KERNEL_TOOLCHAIN_PATH)strip --strip-unneeded $$f; \
 		cp $$f $(KERNEL_MODULES_OUT)/lib/modules; \
 		module_name=$$(basename $$f); \
-		echo lib/modules/"$$module_name" >> $(vendorimage_intermediates)/file_list.txt; \
+		grep -q ^lib/modules/"$$module_name" $(vendorimage_intermediates)/file_list.txt > /dev/null 2>&1 || echo lib/modules/"$$module_name" >> $(vendorimage_intermediates)/file_list.txt; \
 	done;
 	touch $(_fmac_intermediates)/cypress-fmac.ko
 
